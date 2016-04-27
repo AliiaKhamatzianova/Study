@@ -32,7 +32,7 @@ namespace ConsoleApplication1
 
             while (l<=r && d>=u)
             {
-                for (int j = l; j < r; j++)
+                for (int j = l; j <= r; j++)
                     x[u, j] = counter++;
                 for (int i = u + 1; i <= d; i++)
                     x[i, r] = counter++;
@@ -101,7 +101,7 @@ namespace ConsoleApplication1
         static void Main(string[] args)
         {
             int[,] x = new int[3, 4];
-            //FillSpiral(x);
+            FillSpiral(x);
             int count = 1;
             for (int i = 0; i < x.GetLength(0); i++)
             {

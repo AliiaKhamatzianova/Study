@@ -15,12 +15,8 @@ namespace _3._6
         /// <summary>
         /// Эта функция находит минимальное значение в строке матрицы
         /// </summary>
-        /// <param name="array_row">
-        /// Матрица, минимальное значение строки которой нужно найти
-        /// </param>
-        ///  <param name="i">
-        /// Номер строки, минимальное значение которой нужно найти
-        /// </param>
+        /// <param name="array_row">Матрица, минимальное значение строки которой нужно найти</param>
+        /// <param name="i">Номер строки, минимальное значение которой нужно найти</param>
         /// <returns></returns>
         static int MinValueInRow (int [,] array_row, int i)
         {
@@ -33,15 +29,22 @@ namespace _3._6
             return min;
         }
 
+        static int MinValueInRow(int[][] array_row, int i)
+        {
+            int min = array_row[i][ 0];
+
+            for (int j = 0; j < array_row[i].Length; j++)
+                if (array_row[i] [j] < min)
+                    min = array_row[i] [j];
+
+            return min;
+        }
+
         /// <summary>
         /// Эта функция находит максимальное значение в столбце матрицы
         /// </summary>
-        /// <param name="array_row">
-        /// Матрица, максимальное значение столбца которого нужно найти
-        /// </param>
-        ///  <param name="j">
-        /// Номер столбца, максимальное значение которого нужно найти
-        /// </param>
+        /// <param name="array_row">Матрица, максимальное значение столбца которого нужно найти</param>
+        ///  <param name="j">Номер столбца, максимальное значение которого нужно найти</param>
         /// <returns></returns>
         static int MaxValueInColumn(int[,] array_row, int j)
         {
@@ -54,15 +57,22 @@ namespace _3._6
             return max;
         }
 
+        static int MaxValueInColumn(int[][] array_row, int j)
+        {
+            int max = array_row[0][j];
+
+            for (int i = 0; i < array_row.Length ; i++)
+                if (array_row[i] [j] > max)
+                    max = array_row[i] [j];
+
+            return max;
+        }
+
         /// <summary>
         /// Эта функция находит минимальные значения в каждой строке
         /// </summary>
-        /// <param name="matrix">
-        /// Эта матрица, минимальные значения строк которой нужно найти
-        /// </param>
-        /// <returns>
-        /// Возвращается true - если элемент минимальный в строке, иначе - false  
-        /// </returns>
+        /// <param name="matrix">Эта матрица, минимальные значения строк которой нужно найти</param>
+        /// <returns>Возвращается true - если элемент минимальный в строке, иначе - false</returns>
         static bool [,] MinInRow (int [,] matrix)
         {
             bool [,] min_in_row = new bool [matrix.GetLength(0),matrix.GetLength(1)]; 
@@ -85,15 +95,37 @@ namespace _3._6
             return min_in_row;
         }
 
+        static bool[][] MinInRow(int[][] matrix)
+        {
+            bool[][] min_in_row = new bool[matrix.Length][];
+
+            for (int i = 0; i < matrix.Length; i++)
+                min_in_row[i] = new bool[matrix[i].Length];
+
+
+            for (int i = 0; i < min_in_row.Length; i++)
+            {
+                int min = MinValueInRow(matrix, i);
+
+                for (int j = 0; j < min_in_row[i].Length; j++)
+                {
+                    if (matrix[i][j] == min)
+                    {
+                        min_in_row[i] [j] = true;
+                    }
+                    else
+                        min_in_row[i] [j] = false;
+                }
+            }
+
+            return min_in_row;
+        }
+
         /// <summary>
         /// Эта функция находит максимальные значения в каждом столбце
         /// </summary>
-        /// <param name="matrix">
-        /// Эта матрица, максимальные значения столбца которой нужно найти
-        /// </param>
-        /// <returns>
-        /// Возвращается true - если элемент максимальный в строке, иначе - false  
-        /// </returns>
+        /// <param name="matrix">Эта матрица, максимальные значения столбца которой нужно найти</param>
+        /// <returns>Возвращается true - если элемент максимальный в строке, иначе - false</returns>
         static bool[,] MaxInColumn(int[,] matrix)
         {
             bool[,] max_in_column = new bool[matrix.GetLength(0), matrix.GetLength(1)];
@@ -116,6 +148,49 @@ namespace _3._6
             return max_in_column;
         }
 
+        static bool[][] MaxInColumn(int[][] matrix)
+        {
+            bool[][] max_in_column = new bool[matrix.Length][];
+
+            for (int i = 0; i < matrix.Length; i++)
+                max_in_column[i] = new bool[matrix[i].Length];
+            int tmp = 0;
+                for (int j = 0; j < max_in_column[tmp].Length; j++)
+                {
+                    int max = MaxValueInColumn(matrix, j);
+
+                    for (int i = 0; i < max_in_column.Length; i++)
+                    {
+                        if (matrix[i][j] == max)
+                        {
+                            max_in_column[i][j] = true;
+                        }
+                        else
+                            max_in_column[i][j] = false;
+                    }
+                    if (tmp<max_in_column.Length-1)
+                    tmp++;
+                }
+            return max_in_column;
+        }
+     
+        static void PrintSaddlePoint (int [][]matrix)
+        {
+            bool[][] min = MinInRow(matrix);
+            bool[][] max = MaxInColumn(matrix);
+            string result = "";
+            for (int i = 0; i < matrix.Length; i++)
+            {
+                for (int j = 0; j < matrix[i].Length; j++)
+                    if (min[i] [j] == true && max[i][j] == true)
+                        result += matrix[i][j] + "(" + i + "," + j + ")" + " ";
+            }
+
+            if (result != "")
+                Console.Write(result);
+            else
+                Console.WriteLine("Данная матрица не имеет седловых точек");
+        }
 
         /// <summary>
         /// Выводит информацию обо всех седловых точках матрицы
@@ -130,11 +205,11 @@ namespace _3._6
             {
                 for (int j = 0; j < matrix.GetLength(1); j++)
                     if (min[i, j] == true && max[i, j] == true)
-                        result+="Седловая точка " + matrix[i, j] + " расположена в строке " + i + " и столбце " + j + "\n";
+                        result += matrix[i, j] + "(" + i + "," + j + ")"+" ";
             }
 
             if (result != "")
-                Console.WriteLine(result);
+                Console.Write(result);
             else
                 Console.WriteLine("Данная матрица не имеет седловых точек");
         }
@@ -262,13 +337,13 @@ namespace _3._6
 
              SaddlePoint(matrix);
              */
-            Console.WriteLine("Введите количество строк в матрице");
+            /*Console.WriteLine("Введите количество строк в матрице");
             int n = 0;
             n = GetNumberFromConsole();
 
             Console.WriteLine("Введите количество столцбов в матрице");
-            int m = GetNumberFromConsole();
-            int[,] matrixx = new int[n, m];
+            int m = GetNumberFromConsole();*/
+            /*int[,] matrixx = new int[n, m];
             for (int i = 0; i < n; i++)
             {
                 //Console.WriteLine("Введите {0} строку",i);
@@ -285,10 +360,18 @@ namespace _3._6
                     Console.Write(matrixx[i, j] + "\t");
                 Console.WriteLine();
             }
-            Console.WriteLine();
+            Console.WriteLine();*/
+            int[][] matrix1 = new int[2][];
+            matrix1[0] = new int[3];
+            matrix1[1] = new int[2];
 
-
-            SaddlePoint(matrixx);
+            matrix1[0][0] = 9;
+            matrix1[0][1] = 3;
+            matrix1[0][2] = 11;
+            matrix1[1][0] = -1;
+            matrix1[1][1]=2;
+            PrintSaddlePoint(matrix1);
+            //SaddlePoint(matrixx);
         }
 
         static int iEx = 0;

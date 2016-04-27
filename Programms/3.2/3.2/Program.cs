@@ -12,20 +12,20 @@ namespace _3._2
     class Program
     {
 
-        static int GCD(int a, int b)
+        static int GCD(int x, int y)
         {
-            if (a != 0 && b != 0)
+            if (x != 0 && y != 0)
             {
-                while (b != 0)
+                while (y != 0)
                 {
-                    int tmp = a % b;
-                    a = b;
-                    b = tmp;
+                    int tmp = x % y;
+                    x = y;
+                    y = tmp;
                 }
-                return Math.Abs(a);
+                return Math.Abs(x);
             }
             else
-                if ((a != 0 && b == 0) || (a == 0 && b != 0))
+                if ((x != 0 && y == 0) || (x == 0 && y != 0))
                 return 1;
             else
                 throw new Exception("Наибольший общий делитель существует и однозначно определён, если хотя бы одно из чисел не равно нулю!");

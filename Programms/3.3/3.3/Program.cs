@@ -33,7 +33,8 @@ namespace _3._3
 
         static int LCM(int a, int b)
         {
-            return Math.Abs((a * b) / GCD(a, b));
+            double res= Math.Abs(( (double)a *(double) b)) / GCD(a, b);
+            return (int)res;
         }
 
         static int[] Get_array_from_string (string string_array)
