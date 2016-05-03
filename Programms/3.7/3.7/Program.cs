@@ -23,7 +23,7 @@ namespace _3._7
                     s = Int32.Parse(string_x[i].ToString()) * 2;
                 else
                     s = Int32.Parse(string_x[i].ToString());
-                if (s > 10)
+                if (s >= 10)
                     tmp += s / 10 + s % 10;
                 else
                     tmp += s;
