@@ -16,20 +16,18 @@ namespace UnitTestAvlTree
             avletree.Add(1);
             avletree.Add(2);
             avletree.Add(3);
-
             avletree.Add(4);
             avletree.Add(5);
             avletree.Add(4);
             avletree.Add(3);
-
             avletree.Delete(3);
             avletree.Add(1);
             avletree.Add(6);
             avletree.Add(5);
             avletree.Add(2);
 
-
             bool exist = avletree.Search(3);
+
             Assert.AreEqual(true, exist);
             
         }
@@ -53,8 +51,8 @@ namespace UnitTestAvlTree
             avletree.Add(5);
             avletree.Add(2);
 
-
             bool exist = avletree.Search(3);
+
             Assert.AreEqual(false, exist);
 
         }
@@ -78,23 +76,38 @@ namespace UnitTestAvlTree
             avletree.Add(5);
             avletree.Add(2);
 
-
             int min = avletree.SearchMin();
-            Assert.AreEqual(1, min);
 
+            Assert.AreEqual(1, min);
         }
 
         [TestMethod]
-        public void TestTree()
+        public void TestTreeRootIs2()
         {
             AVLTree<int> avletree = new AVLTree<int>(Comparer<int>.Default);
 
             avletree.Add(1);
             avletree.Add(2);
             avletree.Add(3);
-            Assert.Fail();
-            //Assert.AreEqual(2,avletree.)
 
+            Assert.AreEqual(2, avletree.GetRootData());
         }
+
+        [TestMethod]
+        public void TestTreeRootIs3()
+        {
+            AVLTree<int> avletree = new AVLTree<int>(Comparer<int>.Default);
+
+            avletree.Add(1);
+            avletree.Add(2);
+            avletree.Add(3);
+            avletree.Add(4);
+            avletree.Add(5);
+            avletree.Add(4);
+            avletree.Add(3);
+
+            Assert.AreEqual(3, avletree.GetRootData());
+        }
+
     }
 }

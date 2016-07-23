@@ -57,22 +57,6 @@ namespace AVLTree
 
             int min = avletree.SearchMin();
             Console.WriteLine("min = ", min);
-
-            //       avletree.Add(4);
-            //        avletree.PrintTree();
-
-            //       avletree.Add(3);
-            //       avletree.PrintTree();
-
-            //       avletree.Add(2);
-            //       avletree.PrintTree();
-
-
-
-            //  avletree.Print();
-            //  avletree.Delete(1);
-            //  avletree.Print();
-
         }
     }
 }

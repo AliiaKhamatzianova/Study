@@ -36,8 +36,8 @@ namespace AVLTree
         private void PrintTree(TreeNote<T> current, int left = 30, int top = 0)
         {
             Console.SetCursorPosition(left, top);
-            //Console.Write("{0}({1},{2}) u{3}",current.data, current.lengthleft, current.lengthright, current.up.data);
-            Console.Write("{0}", current.data);
+            Console.Write("{0}({4},{1},{2}) u{3}",current.data, current.lengthleft, current.lengthright, current.up.data, current.length);
+           // Console.Write("{0}", current.data);
 
             if (current.left != null)
                 PrintTree(current.left, left - 5, top + 1);
@@ -49,8 +49,8 @@ namespace AVLTree
 
         public void PrintTree()
         {
-          //  Console.Clear();
-          //  PrintTree(_root);
+            Console.Clear();
+            PrintTree(_root);
         }
 
         private TreeNote<T> _root;
@@ -73,7 +73,7 @@ namespace AVLTree
             {//item > curent.data
                 Add(ref current.right, item, current);
             }
-            PrintTree();
+            //PrintTree();
             current.GetLength();
             Balance(ref current);
         }
@@ -86,8 +86,15 @@ namespace AVLTree
             Add(ref _root, item, temp);
         }
 
+        public T GetRootData()
+        {
+            return _root.data;
+        }
+
         private TreeNote<T> Search(TreeNote<T> root, T data)
         {
+            if (_comparer.Compare(data, root.data) == 0)
+                return root;
             if (_comparer.Compare(data, root.data) < 0)
                 //ищем слева от корня
                 return (root.left != null) ? Search(root.left, data) : null;
@@ -200,25 +207,25 @@ namespace AVLTree
         private void RightLeftRotate(ref TreeNote<T> current)
         {
             RightRotate(ref current.right);
-            PrintTree();
+            //PrintTree();
             LeftRotate(ref current);
-            PrintTree();
+            //PrintTree();
 
         }
 
         private void LeftRightRotate(ref TreeNote<T> current)
         {
             LeftRotate(ref current.left);
-            PrintTree();
+            //PrintTree();
 
             RightRotate(ref current);
-            PrintTree();
+            //PrintTree();
         }
 
         private void LeftRotate(ref TreeNote<T> current)
         {
             this.Change(ref current, ref current.right);
-            PrintTree();
+            //PrintTree();
         }
 
         private void Change(ref TreeNote<T> current, ref TreeNote<T> down)
@@ -266,18 +273,16 @@ namespace AVLTree
 
             tmp_cur.up = current;
 
-            PrintTree();
+            //PrintTree();
 
-            if (down != null)
-                down.GetLength();
-            if (current != null)
-                current.GetLength();
+            tmp_cur.GetLength();
+            current.GetLength();
         }
 
         private void RightRotate(ref TreeNote<T> current)
         {
             this.Change(ref current, ref current.left);
-            PrintTree();
+            //PrintTree();
         }
 
         public void Print()
